@@ -13,10 +13,10 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
 
   s.source       = { :git => "https://github.com/washingtonpost/ios-livekit.git", :tag => "#{s.version}" }
-  s.source_files  = "LiveKit/**/*.{h,m,mm,cpp,c,swift, metal}"
+  s.source_files  = "LiveKit/**/*.{h,m,mm,cpp,c,swift,metal}"
   s.public_header_files = ['LiveKit/*.h', 'LiveKit/objects/*.h', 'LiveKit/configuration/*.h']
 
-  s.frameworks = "VideoToolbox", "AudioToolbox","AVFoundation","Foundation","UIKit"
+  s.frameworks = "VideoToolbox", "AudioToolbox","AVFoundation","Foundation","UIKit", "Metal"
   s.libraries = "c++", "z"
 
   s.requires_arc = true
