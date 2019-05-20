@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
 
   s.frameworks = "VideoToolbox", "AudioToolbox","AVFoundation","Foundation","UIKit", "Metal"
   s.libraries = "c++", "z"
+  s.swift_version = '4.2'
 
   s.requires_arc = true
 end

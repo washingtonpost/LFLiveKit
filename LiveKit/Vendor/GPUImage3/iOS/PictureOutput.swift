@@ -62,8 +62,8 @@ public class PictureOutput: ImageConsumer {
             let image = UIImage(cgImage:cgImageFromBytes, scale:1.0, orientation:.up)
             let imageData:Data
             switch encodedImageFormat {
-                case .png: imageData = UIImagePNGRepresentation(image)! // TODO: Better error handling here
-                case .jpeg: imageData = UIImageJPEGRepresentation(image, 0.8)! // TODO: Be able to set image quality
+            case .png: imageData = image.pngData()! // TODO: Better error handling here
+            case .jpeg: imageData = image.jpegData(compressionQuality: 0.8)!
             }
             
             imageCallback(imageData)
@@ -88,7 +88,7 @@ public class PictureOutput: ImageConsumer {
 }
 
 public extension ImageSource {
-    public func saveNextFrameToURL(_ url:URL, format:PictureFileFormat) {
+    func saveNextFrameToURL(_ url:URL, format:PictureFileFormat) {
         let pictureOutput = PictureOutput()
         pictureOutput.saveNextFrameToURL(url, format:format)
         self --> pictureOutput
@@ -96,13 +96,13 @@ public extension ImageSource {
 }
 
 public extension UIImage {
-    public func filterWithOperation<T:ImageProcessingOperation>(_ operation:T) -> UIImage {
+    func filterWithOperation<T:ImageProcessingOperation>(_ operation:T) -> UIImage {
         return filterWithPipeline{input, output in
             input --> operation --> output
         }
     }
     
-    public func filterWithPipeline(_ pipeline:(PictureInput, PictureOutput) -> ()) -> UIImage {
+    func filterWithPipeline(_ pipeline:(PictureInput, PictureOutput) -> ()) -> UIImage {
         let picture = PictureInput(image:self)
         var outputImage:UIImage?
         let pictureOutput = PictureOutput()

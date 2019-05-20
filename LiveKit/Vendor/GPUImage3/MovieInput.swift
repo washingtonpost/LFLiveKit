@@ -14,7 +14,7 @@ public class MovieInput: ImageSource {
     let playAtActualSpeed:Bool
     let loop:Bool
     var videoEncodingIsFinished = false
-    var previousFrameTime = kCMTimeZero
+    var previousFrameTime = CMTime.zero
     var previousActualFrameTime = CFAbsoluteTimeGetCurrent()
 
     var numberOfFramesCaptured = 0
@@ -63,7 +63,7 @@ public class MovieInput: ImageSource {
                 var readerVideoTrackOutput:AVAssetReaderOutput? = nil;
                 
                 for output in self.assetReader.outputs {
-                    if(output.mediaType == AVMediaType.video.rawValue) {
+                    if(output.mediaType.rawValue == AVMediaType.video.rawValue) {
                         readerVideoTrackOutput = output;
                     }
                 }
@@ -208,16 +208,16 @@ public class MovieInput: ImageSource {
 }
 
 public extension Timestamp {
-    public init(_ time:CMTime) {
+    init(_ time:CMTime) {
         self.value = time.value
         self.timescale = time.timescale
         self.flags = TimestampFlags(rawValue:time.flags.rawValue)
         self.epoch = time.epoch
     }
     
-    public var asCMTime:CMTime {
+    var asCMTime:CMTime {
         get {
-            return CMTimeMakeWithEpoch(value, timescale, epoch)
+            return CMTimeMakeWithEpoch(value: value, timescale: timescale, epoch: epoch)
         }
     }
 }
