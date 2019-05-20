@@ -140,7 +140,7 @@
     if (self.uploading) [self.audioEncoder encodeAudioData:audioData timeStamp:NOW];
 }
 
-- (void)captureOutput:(nullable VideoCapture *)capture pixelBuffer:(nullable CVPixelBufferRef)pixelBuffer {
+- (void)captureOutputWithCapture:(LiveVideoCapture * _Nullable)capture pixelBuffer:(CVPixelBufferRef _Nullable)pixelBuffer {
     if (self.uploading) [self.videoEncoder encodeVideoData:pixelBuffer timeStamp:NOW];
 }
 
@@ -369,11 +369,9 @@
     return _audioCaptureSource;
 }
 
-- (VideoCapture *)videoCaptureSource {
+- (LiveVideoCapture *)videoCaptureSource {
     if (!_videoCaptureSource) {
         if(self.captureType & LiveCaptureMaskVideo){
-//            _videoCaptureSource = [[LiveVideoCapture alloc] initWithVideoConfiguration:_videoConfiguration];
-//            _videoCaptureSource.delegate = self;
             _videoCaptureSource = [[LiveVideoCapture alloc] initWith:_videoConfiguration];
             _videoCaptureSource.delegate = self;
         }

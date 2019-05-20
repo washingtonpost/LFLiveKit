@@ -38,9 +38,7 @@ public class MetalRenderingDevice {
         
         do {
             let frameworkBundle = Bundle(for: MetalRenderingDevice.self)
-            let metalLibraryPath = frameworkBundle.path(forResource: "default", ofType: "metallib")!
-            
-            self.shaderLibrary = try device.makeLibrary(filepath:metalLibraryPath)
+            self.shaderLibrary = try device.makeDefaultLibrary(bundle: frameworkBundle)
         } catch {
             fatalError("Could not load library")
         }
