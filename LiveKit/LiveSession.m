@@ -14,9 +14,10 @@
 #import "LFH264VideoEncoder.h"
 #import "StreamRTMPSocket.h"
 #import "LiveStreamInfo.h"
-#import "LFGPUImageBeautyFilter.h"
+//#import "LFGPUImageBeautyFilter.h"
 #import "LFH264VideoEncoder.h"
 
+#import <LiveKit/LiveKit-Swift.h>
 
 @interface LiveSession ()<AudioCaptureDelegate, VideoCaptureDelegate, AudioEncodingDelegate, VideoEncodingDelegate, StreamSocketDelegate>
 
@@ -27,7 +28,10 @@
 /// 声音采集
 @property (nonatomic, strong) AudioCapture *audioCaptureSource;
 /// 视频采集
-@property (nonatomic, strong) VideoCapture *videoCaptureSource;
+//@property (nonatomic, strong) VideoCapture *videoCaptureSource;
+
+@property (nonatomic, strong) LiveVideoCapture *videoCaptureSource;
+
 /// 音频编码
 @property (nonatomic, strong) id<AudioEncoding> audioEncoder;
 /// 视频编码
@@ -90,7 +94,8 @@
 }
 
 - (void)dealloc {
-    _videoCaptureSource.running = NO;
+    //_videoCaptureSource.running = NO;
+    [_videoCaptureSource end];
     _audioCaptureSource.running = NO;
 }
 
@@ -221,23 +226,24 @@
     [self willChangeValueForKey:@"running"];
     _running = running;
     [self didChangeValueForKey:@"running"];
-    self.videoCaptureSource.running = _running;
+    //self.videoCaptureSource.running = _running;
+    [self.videoCaptureSource begin];
     self.audioCaptureSource.running = _running;
 }
 
-- (void)setPreView:(UIView *)preView {
-    [self willChangeValueForKey:@"preView"];
-    [self.videoCaptureSource setPreView:preView];
-    [self didChangeValueForKey:@"preView"];
+- (void)setPreviewImageView:(UIView *)previewImageView {
+    [self willChangeValueForKey:@"previewImageView"];
+    //[self.videoCaptureSource setPreviewImageView:previewImageView];
+    [self didChangeValueForKey:@"previewImageView"];
 }
 
-- (UIView *)preView {
-    return self.videoCaptureSource.preView;
+- (UIView *)previewImageView {
+    return self.videoCaptureSource.previewImageView;
 }
 
 - (void)setCaptureDevicePosition:(AVCaptureDevicePosition)captureDevicePosition {
     [self willChangeValueForKey:@"captureDevicePosition"];
-    [self.videoCaptureSource setCaptureDevicePosition:captureDevicePosition];
+    //[self.videoCaptureSource setCaptureDevicePosition:captureDevicePosition];
     [self didChangeValueForKey:@"captureDevicePosition"];
 }
 
@@ -247,79 +253,87 @@
 
 - (void)setBeautyFace:(BOOL)beautyFace {
     [self willChangeValueForKey:@"beautyFace"];
-    [self.videoCaptureSource setBeautyFace:beautyFace];
+    //[self.videoCaptureSource setBeautyFace:beautyFace];
     [self didChangeValueForKey:@"beautyFace"];
 }
 
 - (BOOL)saveLocalVideo{
-    return self.videoCaptureSource.saveLocalVideo;
+    return NO;
+    //return self.videoCaptureSource.saveLocalVideo;
 }
 
 - (void)setSaveLocalVideo:(BOOL)saveLocalVideo{
-    [self.videoCaptureSource setSaveLocalVideo:saveLocalVideo];
+    //[self.videoCaptureSource setSaveLocalVideo:saveLocalVideo];
 }
 
 
 - (NSURL*)saveLocalVideoPath{
-    return self.videoCaptureSource.saveLocalVideoPath;
+    return nil;
+    //return self.videoCaptureSource.saveLocalVideoPath;
 }
 
 - (void)setSaveLocalVideoPath:(NSURL*)saveLocalVideoPath{
-    [self.videoCaptureSource setSaveLocalVideoPath:saveLocalVideoPath];
+   // [self.videoCaptureSource setSaveLocalVideoPath:saveLocalVideoPath];
 }
 
 - (BOOL)beautyFace {
-    return self.videoCaptureSource.beautyFace;
+    return NO;
+    //return self.videoCaptureSource.beautyFace;
 }
 
 - (void)setBeautyLevel:(CGFloat)beautyLevel {
     [self willChangeValueForKey:@"beautyLevel"];
-    [self.videoCaptureSource setBeautyLevel:beautyLevel];
+    //[self.videoCaptureSource setBeautyLevel:beautyLevel];
     [self didChangeValueForKey:@"beautyLevel"];
 }
 
 - (CGFloat)beautyLevel {
-    return self.videoCaptureSource.beautyLevel;
+    return 0.5;
+   // return self.videoCaptureSource.beautyLevel;
 }
 
 - (void)setBrightLevel:(CGFloat)brightLevel {
     [self willChangeValueForKey:@"brightLevel"];
-    [self.videoCaptureSource setBrightLevel:brightLevel];
+    //[self.videoCaptureSource setBrightLevel:brightLevel];
     [self didChangeValueForKey:@"brightLevel"];
 }
 
 - (CGFloat)brightLevel {
-    return self.videoCaptureSource.brightLevel;
+    return 0.5;
+   // return self.videoCaptureSource.brightLevel;
 }
 
 - (void)setZoomScale:(CGFloat)zoomScale {
     [self willChangeValueForKey:@"zoomScale"];
-    [self.videoCaptureSource setZoomScale:zoomScale];
+   // [self.videoCaptureSource setZoomScale:zoomScale];
     [self didChangeValueForKey:@"zoomScale"];
 }
 
 - (CGFloat)zoomScale {
-    return self.videoCaptureSource.zoomScale;
+    return 1.0;
+   // return self.videoCaptureSource.zoomScale;
 }
 
 - (void)setTorch:(BOOL)torch {
     [self willChangeValueForKey:@"torch"];
-    [self.videoCaptureSource setTorch:torch];
+   // [self.videoCaptureSource setTorch:torch];
     [self didChangeValueForKey:@"torch"];
 }
 
 - (BOOL)torch {
-    return self.videoCaptureSource.torch;
+    return NO;
+    //return self.videoCaptureSource.torch;
 }
 
 - (void)setMirror:(BOOL)mirror {
     [self willChangeValueForKey:@"mirror"];
-    [self.videoCaptureSource setMirror:mirror];
+   // [self.videoCaptureSource setMirror:mirror];
     [self didChangeValueForKey:@"mirror"];
 }
 
 - (BOOL)mirror {
-    return self.videoCaptureSource.mirror;
+    return NO;
+    //return self.videoCaptureSource.mirror;
 }
 
 - (void)setMuted:(BOOL)muted {
@@ -333,11 +347,12 @@
 }
 
 - (void)setWarterMarkView:(UIView *)warterMarkView{
-    [self.videoCaptureSource setWarterMarkView:warterMarkView];
+    //[self.videoCaptureSource setWarterMarkView:warterMarkView];
 }
 
 - (nullable UIView*)warterMarkView{
-    return self.videoCaptureSource.warterMarkView;
+    return nil;
+    //return self.videoCaptureSource.warterMarkView;
 }
 
 - (nullable UIImage *)currentImage{
@@ -357,7 +372,9 @@
 - (VideoCapture *)videoCaptureSource {
     if (!_videoCaptureSource) {
         if(self.captureType & LiveCaptureMaskVideo){
-            _videoCaptureSource = [[VideoCapture alloc] initWithVideoConfiguration:_videoConfiguration];
+//            _videoCaptureSource = [[LiveVideoCapture alloc] initWithVideoConfiguration:_videoConfiguration];
+//            _videoCaptureSource.delegate = self;
+            _videoCaptureSource = [[LiveVideoCapture alloc] initWith:_videoConfiguration];
             _videoCaptureSource.delegate = self;
         }
     }

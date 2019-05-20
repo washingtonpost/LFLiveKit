@@ -10,11 +10,13 @@
 #import <AVFoundation/AVFoundation.h>
 #import "LiveVideoConfiguration.h"
 
-@class VideoCapture;
-/** VideoCapture callback videoData */
-@protocol VideoCaptureDelegate <NSObject>
-- (void)captureOutput:(nullable VideoCapture *)capture pixelBuffer:(nullable CVPixelBufferRef)pixelBuffer;
-@end
+#import <LiveKit/LiveKit-Swift.h>
+
+//@class VideoCapture;
+///** VideoCapture callback videoData */
+//@protocol VideoCaptureDelegate <NSObject>
+//- (void)captureOutput:(nullable VideoCapture *)capture pixelBuffer:(nullable CVPixelBufferRef)pixelBuffer;
+//@end
 
 @interface VideoCapture : NSObject
 
@@ -29,8 +31,8 @@
 /** The running control start capture or stop capture*/
 @property (nonatomic, assign) BOOL running;
 
-/** The preView will show OpenGL ES view*/
-@property (null_resettable, nonatomic, strong) UIView *preView;
+/// Metal
+@property (null_resettable, nonatomic, strong) UIView *previewImageView;
 
 /** The captureDevicePosition control camraPosition ,default front*/
 @property (nonatomic, assign) AVCaptureDevicePosition captureDevicePosition;
