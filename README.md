@@ -1,16 +1,7 @@
-LFLiveKit
+LiveKit
 ==============
-![icon~](https://raw.github.com/LaiFengiOS/LFLiveKit/master/samples/Icon.png)
 
-
-[![Build Status](https://travis-ci.org/LaiFengiOS/LFLiveKit.svg)](https://travis-ci.org/LaiFengiOS/LFLiveKit)&nbsp;
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/chenliming777/LFLiveKit/master/LICENSE)&nbsp;
-[![CocoaPods](http://img.shields.io/cocoapods/v/LFLiveKit.svg?style=flat)](http://cocoapods.org/?q=LFLiveKit)&nbsp;
-[![Support](https://img.shields.io/badge/ios-7-orange.svg)](https://www.apple.com/nl/ios/)&nbsp;
-![platform](https://img.shields.io/badge/platform-ios-ff69b4.svg)&nbsp;
-
-
-**LFLiveKit is a opensource RTMP streaming SDK for iOS.**  
+**LiveKit is a opensource RTMP streaming SDK for iOS forked from LiveKit and maintained by WashPost.**  
 
 ## Features
 
@@ -33,31 +24,25 @@ LFLiveKit
 - [ ] 	~~FLV package and send~~
 
 ## Requirements
-    - iOS 7.0+
-    - Xcode 7.3
+    - iOS 10.0+
+    - Xcode 10.2
   
 ## Installation
 
 #### CocoaPods
-	# To integrate LFLiveKit into your Xcode project using CocoaPods, specify it in your Podfile:
+	# To integrate LiveKit into your Xcode project using CocoaPods, specify it in your Podfile:
 
 	source 'https://github.com/CocoaPods/Specs.git'
-	platform :ios, '7.0'
-	pod 'LFLiveKit'
+	platform :ios, '10.0'
+	pod 'LiveKit'
 	
 	# Then, run the following command:
 	$ pod install
 
 
-#### Carthage
-    1. Add `github "LaiFengiOS/LFLiveKit"` to your Cartfile.
-    2. Run `carthage update --platform ios` and add the framework to your project.
-    3. Import \<LFLiveKit/LFLiveKit.h\>.
-
-
 #### Manually
 
-    1. Download all the files in the `LFLiveKit` subdirectory.
+    1. Download all the files in the `LiveKit` subdirectory.
     2. Add the source files to your Xcode project.
     3. Link with required frameworks:
         * UIKit
@@ -72,9 +57,9 @@ LFLiveKit
 
 #### Objective-C
 ```objc
-- (LFLiveSession*)session {
+- (LiveSession*)session {
 	if (!_session) {
-	    _session = [[LFLiveSession alloc] initWithAudioConfiguration:[LFLiveAudioConfiguration defaultConfiguration] videoConfiguration:[LFLiveVideoConfiguration defaultConfiguration]];
+	    _session = [[LiveSession alloc] initWithAudioConfiguration:[LiveAudioConfiguration defaultConfiguration] videoConfiguration:[LiveVideoConfiguration defaultConfiguration]];
 	    _session.preView = self;
 	    _session.delegate = self;
 	}
@@ -82,7 +67,7 @@ LFLiveKit
 }
 
 - (void)startLive {	
-	LFLiveStreamInfo *streamInfo = [LFLiveStreamInfo new];
+	LiveStreamInfo *streamInfo = [LiveStreamInfo new];
 	streamInfo.url = @"your server rtmp url";
 	[self.session startLive:streamInfo];
 }
@@ -92,20 +77,20 @@ LFLiveKit
 }
 
 //MARK: - CallBack:
-- (void)liveSession:(nullable LFLiveSession *)session liveStateDidChange: (LFLiveState)state;
-- (void)liveSession:(nullable LFLiveSession *)session debugInfo:(nullable LFLiveDebug*)debugInfo;
-- (void)liveSession:(nullable LFLiveSession*)session errorCode:(LFLiveSocketErrorCode)errorCode;
+- (void)liveSession:(nullable LiveSession *)session liveStateDidChange: (LiveState)state;
+- (void)liveSession:(nullable LiveSession *)session debugInfo:(nullable LiveDebug*)debugInfo;
+- (void)liveSession:(nullable LiveSession*)session errorCode:(LiveSocketErrorCode)errorCode;
 ```
 #### Swift
+TODO update
 ```swift
-// import LFLiveKit in [ProjectName]-Bridging-Header.h
-#import <LFLiveKit.h> 
+import LiveKit
 
 //MARK: - Getters and Setters
-lazy var session: LFLiveSession = {
-	let audioConfiguration = LFLiveAudioConfiguration.defaultConfiguration()
-	let videoConfiguration = LFLiveVideoConfiguration.defaultConfigurationForQuality(LFLiveVideoQuality.Low3, landscape: false)
-	let session = LFLiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)
+lazy var session: LiveSession = {
+	let audioConfiguration = LiveAudioConfiguration.defaultConfiguration()
+	let videoConfiguration = LiveVideoConfiguration.defaultConfigurationForQuality(LiveVideoQuality.Low3, landscape: false)
+	let session = LiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)
 	    
 	session?.delegate = self
 	session?.preView = self.view
@@ -114,7 +99,7 @@ lazy var session: LFLiveSession = {
 
 //MARK: - Event
 func startLive() -> Void { 
-	let stream = LFLiveStreamInfo()
+	let stream = LiveStreamInfo()
 	stream.url = "your server rtmp url";
 	session.startLive(stream)
 }
@@ -124,22 +109,17 @@ func stopLive() -> Void {
 }
 
 //MARK: - Callback
-func liveSession(session: LFLiveSession?, debugInfo: LFLiveDebug?) 
-func liveSession(session: LFLiveSession?, errorCode: LFLiveSocketErrorCode)
-func liveSession(session: LFLiveSession?, liveStateDidChange state: LFLiveState)
+func liveSession(session: LiveSession?, debugInfo: LiveDebug?) 
+func liveSession(session: LiveSession?, errorCode: LiveSocketErrorCode)
+func liveSession(session: LiveSession?, liveStateDidChange state: LiveState)
 ```
 
 ## Release History
-    * 2.0.0
-        * CHANGE: modify bugs,support ios7 live.
-    * 2.2.4.3
-        * CHANGE: modify bugs,support swift import.
-    * 2.5 
-        * CHANGE: modify bugs,support bitcode.
+   TODO.
 
 
 ## License
- **LFLiveKit is released under the MIT license. See LICENSE for details.**
+ **LiveKit is released under the MIT license. See LICENSE for details.**
 
 
 
