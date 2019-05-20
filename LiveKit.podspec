@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.summary      = "iOS Live. LiveKit."
   s.homepage     = "https://github.com/washingtonpost/ios-livekit"
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  s.author       = { "The Washington Post' => 'iosdevpluscontractors@washpost.com'" }
+  s.author       = { "The Washington Post" => "iosdevpluscontractors@washpost.com" }
 
   s.ios.deployment_target = '10.0'
   s.tvos.deployment_target = '10.0'
