@@ -15,7 +15,8 @@
 #elif __has_include("GPUImage/GPUImage.h")
 #import "GPUImage/GPUImage.h"
 #else
-#import "GPUImage.h"
+//#import "GPUImage.h"
+//#import <EVGPUImage2/EVGPUImage2-Swift.h>
 #endif
 
 #import <LiveKit/LiveKit-Swift.h>

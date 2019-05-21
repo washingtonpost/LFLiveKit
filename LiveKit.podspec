@@ -9,14 +9,18 @@ Pod::Spec.new do |s|
   s.author       = { "The Washington Post" => "iosdevpluscontractors@washpost.com" }
 
   s.ios.deployment_target = '10.0'
-  s.tvos.deployment_target = '10.0'
-  s.watchos.deployment_target = '2.0'
+  s.tvos.deployment_target = '11.0'
 
   s.source       = { :git => "https://github.com/washingtonpost/ios-livekit.git", :tag => "#{s.version}" }
-  s.source_files  = "LiveKit/**/*.{h,m,mm,cpp,c,swift,metal}"
+  s.source_files  = "LiveKit/**/*"
   s.public_header_files = ['LiveKit/*.h', 'LiveKit/objects/*.h', 'LiveKit/configuration/*.h']
 
-  s.frameworks = "VideoToolbox", "AudioToolbox","AVFoundation","Foundation","UIKit", "Metal"
+  s.preserve_paths = "LiveKit.framework/*"
+  s.resources = "LiveKit.framework/*.metallib"
+
+  # s.dependency 'EVGPUImage2' (GPUImage2 - swift )
+
+  s.frameworks = "VideoToolbox", "AudioToolbox","AVFoundation","Foundation","UIKit", "Metal", "CoreGraphics"
   s.libraries = "c++", "z"
   s.swift_version = '4.2'
 

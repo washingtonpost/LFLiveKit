@@ -4,7 +4,8 @@ public class WhiteBalance: BasicOperation {
     
     public init() {
         super.init(fragmentFunctionName:"whiteBalanceFragmentShader", numberOfInputs:1)
-        
+
+        // TODO?
 //        uniformSettings.appendUniform(5000.0)
 //        uniformSettings.appendUniform(0.0)
     }

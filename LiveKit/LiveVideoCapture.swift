@@ -7,6 +7,7 @@
 //
 
 import AVKit
+//import EVGPUImage2
 import Foundation
 
 @objc public protocol VideoCaptureDelegate {
@@ -17,38 +18,49 @@ import Foundation
 
     @objc public weak var delegate: VideoCaptureDelegate?
 
-    public var running = false
+    @objc public var running = false {
+        didSet {
+            if running {
+                begin()
+            } else {
+                end()
+            }
+        }
+    }
 
     @objc public var captureDevicePosition: AVCaptureDevice.Position = .back
     
     /// The beautyFace control capture shader filter empty or beauty
-    public var beautyFace = false
+    @objc public var beautyFace = false
 
     /// The torch control capture flash is on or off
-    public var torch = false {
+    @objc  public var torch = false {
         didSet {
             // TODO torch/flash mode
         }
     }
 
     /// The mirror control mirror of front camera is on or off
-    public var mirror = false
+    @objc public var mirror = false
 
     /// The beautyLevel control beautyFace Level, default 0.5, between 0.0 ~ 1.0
-    public var beautyLevel: CGFloat = 0.5
+    @objc public var beautyLevel: CGFloat = 0.5
+
+    /// The brightLevel control brightness Level, default 0.5, between 0.0 ~ 1.0
+    @objc public var brightLevel: CGFloat = 0.5
 
     /// The zoom control camera zoom scale default 1.0, between 1.0 ~ 3.0
-    public var zoomScale: CGFloat = 1.0
+    @objc public var zoomScale: CGFloat = 1.0
 
-    public var videoFrameRate: Int = 0
+    @objc public var videoFrameRate: Int = 0
 
     @objc public var currentImage: UIImage?
 
-    public var saveLocalVideo = false
+    @objc public var saveLocalVideo = false
 
-    public var saveLocalVideoPath: URL?
+    @objc public var saveLocalVideoPath: URL?
 
-    var videoConfiguration: LiveVideoConfiguration
+    let videoConfiguration: LiveVideoConfiguration
 
     var videoCamera: Camera
 
@@ -59,22 +71,34 @@ import Foundation
 
     let filter = SaturationAdjustment()
 
+    /// ImageConsumer
+    public var sources = SourceContainer()
+
+    /// Images to RTMP
     lazy var pictureOutput: PictureOutput = {
         let output = PictureOutput()
+        output.onlyCaptureNextFrame = false
         output.imageAvailableCallback = { [weak self] image in
             self?.process(image: image)
         }
         return output
     }()
 
+    //var movieOutput: MovieOutput?
+
     @objc public var previewImageView: UIView? {
-        didSet {
+        get {
+            return self.renderView!.superview!
+        }
+        set {
             guard let renderView = renderView else {
                 return
             }
-
-            previewImageView?.insertSubview(renderView, at: 0)
-            renderView.frame = CGRect(origin: .zero, size: previewImageView?.frame.size ?? .zero)
+            if renderView.superview != nil {
+                renderView.removeFromSuperview()
+            }
+            newValue?.insertSubview(renderView, at: 0)
+            renderView.frame = CGRect(origin: .zero, size: renderView.frame.size)
         }
     }
 
@@ -83,13 +107,11 @@ import Foundation
         do {
             videoCamera = try Camera(sessionPreset: .high)
         } catch {
-            fatalError("Could not initialize rendering pipeline")
+            print("Could not initialize rendering pipeline. \(error)")
+            fatalError("Could not initialize rendering pipeline. \(error)")
         }
-        super.init()
 
-        // Test
-        videoCamera --> filter --> renderView!
-        filter --> pictureOutput
+        super.init()
     }
 
     deinit {
@@ -99,25 +121,37 @@ import Foundation
     }
 
     @objc public func begin() {
-        guard !running else {
+        guard let renderView = self.renderView else {
             return
         }
+        // Test
+        videoCamera --> filter --> renderView
+        filter --> pictureOutput
 
         UIApplication.shared.isIdleTimerDisabled = true
         videoCamera.startCapture()
+
+//        if let saveLocalVideoPath = saveLocalVideoPath, saveLocalVideo {
+//            movieOutput = try? MovieOutput(URL: saveLocalVideoPath,
+//                                          size: Size(width:480, height:640),
+//                                          liveVideo: true)
+//            videoCamera.audioEncodingTarget = movieOutput
+//            filter --> movieOutput!
+//            movieOutput?.startRecording()
+//        }
     }
 
     @objc public func end() {
-        guard running else {
-            return
-        }
-
         UIApplication.shared.isIdleTimerDisabled = false
         videoCamera.stopCapture()
+//        movieOutput?.finishRecording({ [weak self] in
+//            self?.videoCamera.audioEncodingTarget = nil
+//            self?.movieOutput = nil
+//        })
     }
 
     func process(image: UIImage) {
-        // TODO
+        // Test
         delegate?.captureOutput(capture: self, pixelBuffer: buffer(from: image))
     }
 

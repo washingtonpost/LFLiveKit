@@ -94,8 +94,7 @@
 }
 
 - (void)dealloc {
-    //_videoCaptureSource.running = NO;
-    [_videoCaptureSource end];
+    _videoCaptureSource.running = NO;
     _audioCaptureSource.running = NO;
 }
 
@@ -226,14 +225,13 @@
     [self willChangeValueForKey:@"running"];
     _running = running;
     [self didChangeValueForKey:@"running"];
-    //self.videoCaptureSource.running = _running;
-    [self.videoCaptureSource begin];
+    self.videoCaptureSource.running = _running;
     self.audioCaptureSource.running = _running;
 }
 
 - (void)setPreviewImageView:(UIView *)previewImageView {
     [self willChangeValueForKey:@"previewImageView"];
-    //[self.videoCaptureSource setPreviewImageView:previewImageView];
+    [self.videoCaptureSource setPreviewImageView:previewImageView];
     [self didChangeValueForKey:@"previewImageView"];
 }
 
@@ -243,7 +241,7 @@
 
 - (void)setCaptureDevicePosition:(AVCaptureDevicePosition)captureDevicePosition {
     [self willChangeValueForKey:@"captureDevicePosition"];
-    //[self.videoCaptureSource setCaptureDevicePosition:captureDevicePosition];
+    [self.videoCaptureSource setCaptureDevicePosition:captureDevicePosition];
     [self didChangeValueForKey:@"captureDevicePosition"];
 }
 
@@ -253,87 +251,79 @@
 
 - (void)setBeautyFace:(BOOL)beautyFace {
     [self willChangeValueForKey:@"beautyFace"];
-    //[self.videoCaptureSource setBeautyFace:beautyFace];
+    [self.videoCaptureSource setBeautyFace:beautyFace];
     [self didChangeValueForKey:@"beautyFace"];
 }
 
 - (BOOL)saveLocalVideo{
-    return NO;
-    //return self.videoCaptureSource.saveLocalVideo;
+    return self.videoCaptureSource.saveLocalVideo;
 }
 
 - (void)setSaveLocalVideo:(BOOL)saveLocalVideo{
-    //[self.videoCaptureSource setSaveLocalVideo:saveLocalVideo];
+    [self.videoCaptureSource setSaveLocalVideo:saveLocalVideo];
 }
 
 
 - (NSURL*)saveLocalVideoPath{
-    return nil;
-    //return self.videoCaptureSource.saveLocalVideoPath;
+    return self.videoCaptureSource.saveLocalVideoPath;
 }
 
 - (void)setSaveLocalVideoPath:(NSURL*)saveLocalVideoPath{
-   // [self.videoCaptureSource setSaveLocalVideoPath:saveLocalVideoPath];
+   [self.videoCaptureSource setSaveLocalVideoPath:saveLocalVideoPath];
 }
 
 - (BOOL)beautyFace {
-    return NO;
-    //return self.videoCaptureSource.beautyFace;
+    return self.videoCaptureSource.beautyFace;
 }
 
 - (void)setBeautyLevel:(CGFloat)beautyLevel {
     [self willChangeValueForKey:@"beautyLevel"];
-    //[self.videoCaptureSource setBeautyLevel:beautyLevel];
+    [self.videoCaptureSource setBeautyLevel:beautyLevel];
     [self didChangeValueForKey:@"beautyLevel"];
 }
 
 - (CGFloat)beautyLevel {
-    return 0.5;
-   // return self.videoCaptureSource.beautyLevel;
+    return self.videoCaptureSource.beautyLevel;
 }
 
 - (void)setBrightLevel:(CGFloat)brightLevel {
     [self willChangeValueForKey:@"brightLevel"];
-    //[self.videoCaptureSource setBrightLevel:brightLevel];
+    [self.videoCaptureSource setBrightLevel:brightLevel];
     [self didChangeValueForKey:@"brightLevel"];
 }
 
 - (CGFloat)brightLevel {
-    return 0.5;
-   // return self.videoCaptureSource.brightLevel;
+    return self.videoCaptureSource.brightLevel;
 }
 
 - (void)setZoomScale:(CGFloat)zoomScale {
     [self willChangeValueForKey:@"zoomScale"];
-   // [self.videoCaptureSource setZoomScale:zoomScale];
+    [self.videoCaptureSource setZoomScale:zoomScale];
     [self didChangeValueForKey:@"zoomScale"];
 }
 
 - (CGFloat)zoomScale {
-    return 1.0;
-   // return self.videoCaptureSource.zoomScale;
+    return self.videoCaptureSource.zoomScale;
 }
 
 - (void)setTorch:(BOOL)torch {
     [self willChangeValueForKey:@"torch"];
-   // [self.videoCaptureSource setTorch:torch];
+    [self.videoCaptureSource setTorch:torch];
     [self didChangeValueForKey:@"torch"];
 }
 
 - (BOOL)torch {
-    return NO;
-    //return self.videoCaptureSource.torch;
+    return self.videoCaptureSource.torch;
 }
 
 - (void)setMirror:(BOOL)mirror {
     [self willChangeValueForKey:@"mirror"];
-   // [self.videoCaptureSource setMirror:mirror];
+    [self.videoCaptureSource setMirror:mirror];
     [self didChangeValueForKey:@"mirror"];
 }
 
 - (BOOL)mirror {
-    return NO;
-    //return self.videoCaptureSource.mirror;
+    return self.videoCaptureSource.mirror;
 }
 
 - (void)setMuted:(BOOL)muted {
@@ -344,15 +334,6 @@
 
 - (BOOL)muted {
     return self.audioCaptureSource.muted;
-}
-
-- (void)setWarterMarkView:(UIView *)warterMarkView{
-    //[self.videoCaptureSource setWarterMarkView:warterMarkView];
-}
-
-- (nullable UIView*)warterMarkView{
-    return nil;
-    //return self.videoCaptureSource.warterMarkView;
 }
 
 - (nullable UIImage *)currentImage{

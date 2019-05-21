@@ -1,7 +1,7 @@
 LiveKit
 ==============
 
-**LiveKit is a opensource RTMP streaming SDK for iOS forked from [LFLiveKit](https://github.com/LaiFengiOS/LFLiveKit) and maintained by WashPost.**  
+**LiveKit is a opensource RTMP streaming SDK for iOS forked from [LiveKit](https://github.com/LaiFengiOS/LiveKit) and maintained by WashPost.**  
 
 ## Features
 

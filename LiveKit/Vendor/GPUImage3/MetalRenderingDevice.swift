@@ -35,7 +35,7 @@ public class MetalRenderingDevice {
         } else {
             self.metalPerformanceShadersAreSupported = false
         }
-        
+
         do {
             let frameworkBundle = Bundle(for: MetalRenderingDevice.self)
             self.shaderLibrary = try device.makeDefaultLibrary(bundle: frameworkBundle)
