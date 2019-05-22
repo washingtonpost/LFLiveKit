@@ -7,7 +7,6 @@
 //
 
 import AVKit
-//import EVGPUImage2
 import Foundation
 
 @objc public protocol VideoCaptureDelegate {
@@ -18,6 +17,7 @@ import Foundation
 
     @objc public weak var delegate: VideoCaptureDelegate?
 
+    // TODO: This is how it was doing it using Obj-C. We can do better.
     @objc public var running = false {
         didSet {
             if running {
@@ -75,9 +75,6 @@ import Foundation
 
     let filter = SaturationAdjustment()
 
-    /// ImageConsumer
-    public var sources = SourceContainer()
-
     /// Images to RTMP
     lazy var pictureOutput: PictureOutput = {
         let output = PictureOutput()
@@ -87,8 +84,6 @@ import Foundation
         }
         return output
     }()
-
-    //var movieOutput: MovieOutput?
 
     @objc public var previewImageView: UIView? {
         get {
@@ -116,6 +111,21 @@ import Foundation
         }
 
         super.init()
+
+        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification,
+                                               object: nil,
+                                               queue: nil) { [weak self] _ in
+            self?.end()
+        }
+
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil) {
+            [weak self] _ in
+            self?.begin()
+        }
+
+        NotificationCenter.default.addObserver(forName: UIApplication.willChangeStatusBarFrameNotification, object: nil, queue: nil) { _ in
+            // TODO handle rotation?
+        }
     }
 
     deinit {
@@ -134,28 +144,14 @@ import Foundation
 
         UIApplication.shared.isIdleTimerDisabled = true
         videoCamera.startCapture()
-
-//        if let saveLocalVideoPath = saveLocalVideoPath, saveLocalVideo {
-//            movieOutput = try? MovieOutput(URL: saveLocalVideoPath,
-//                                          size: Size(width:480, height:640),
-//                                          liveVideo: true)
-//            videoCamera.audioEncodingTarget = movieOutput
-//            filter --> movieOutput!
-//            movieOutput?.startRecording()
-//        }
     }
 
     @objc public func end() {
         UIApplication.shared.isIdleTimerDisabled = false
         videoCamera.stopCapture()
-//        movieOutput?.finishRecording({ [weak self] in
-//            self?.videoCamera.audioEncodingTarget = nil
-//            self?.movieOutput = nil
-//        })
     }
 
     func process(image: UIImage) {
-        // Test
         delegate?.captureOutput(capture: self, pixelBuffer: buffer(from: image))
     }
 
