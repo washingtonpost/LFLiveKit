@@ -13,7 +13,8 @@ public enum PhysicalCameraLocation {
     func imageOrientation() -> ImageOrientation {
         switch self {
         case .backFacing: return .landscapeRight
-        case .frontFacing: return .landscapeLeft
+        // TODO
+        case .frontFacing: return .landscapeRight //.landscapeLeft
         }
     }
     
@@ -25,15 +26,13 @@ public enum PhysicalCameraLocation {
     }
     
     func device() -> AVCaptureDevice? {
-        let devices = AVCaptureDevice.devices(for:AVMediaType.video)
-        for case let device in devices {
-            if (device.position == self.captureDevicePosition()) {
-                return device
-            }
-        }
-        
-        return AVCaptureDevice.default(for: AVMediaType.video)
+        return getCamera(for: captureDevicePosition())
     }
+
+    func getCamera(for position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        return AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: position)
+    }
+
 }
 
 public struct CameraError: Error {
@@ -46,7 +45,9 @@ public class Camera: NSObject, ImageSource, AVCaptureVideoDataOutputSampleBuffer
 
     public var location:PhysicalCameraLocation {
         didSet {
-            // TODO: Swap the camera locations, framebuffers as needed
+            if let device = location.device() {
+                switchInputDevice(to: device)
+            }
         }
     }
     public var runBenchmark:Bool = false
@@ -55,8 +56,8 @@ public class Camera: NSObject, ImageSource, AVCaptureVideoDataOutputSampleBuffer
     public let targets = TargetContainer()
     public var delegate: CameraDelegate?
     public let captureSession:AVCaptureSession
-    let inputCamera:AVCaptureDevice!
-    let videoInput:AVCaptureDeviceInput!
+    var inputCamera: AVCaptureDevice!
+    var videoInput:AVCaptureDeviceInput!
     let videoOutput:AVCaptureVideoDataOutput!
     var videoTextureCache: CVMetalTextureCache?
     
@@ -175,7 +176,7 @@ public class Camera: NSObject, ImageSource, AVCaptureVideoDataOutputSampleBuffer
         let cameraFrame = CMSampleBufferGetImageBuffer(sampleBuffer)!
         let bufferWidth = CVPixelBufferGetWidth(cameraFrame)
         let bufferHeight = CVPixelBufferGetHeight(cameraFrame)
-        let currentTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+        //let currentTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         
         CVPixelBufferLockBaseAddress(cameraFrame, CVPixelBufferLockFlags(rawValue:CVOptionFlags(0)))
         
@@ -277,4 +278,18 @@ public class Camera: NSObject, ImageSource, AVCaptureVideoDataOutputSampleBuffer
     public func transmitPreviousImage(to target: ImageConsumer, atIndex: UInt) {
         // Not needed for camera
     }
+
+    func switchInputDevice(to device: AVCaptureDevice) {
+        captureSession.removeInput(videoInput)
+        inputCamera = device
+
+        do {
+            videoInput = try AVCaptureDeviceInput(device: device)
+        } catch {
+            print(error.localizedDescription)
+        }
+        captureSession.addInput(videoInput)
+        captureSession.commitConfiguration()
+    }
+
 }

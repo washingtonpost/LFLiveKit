@@ -28,7 +28,11 @@ import Foundation
         }
     }
 
-    @objc public var captureDevicePosition: AVCaptureDevice.Position = .back
+    @objc public var captureDevicePosition: AVCaptureDevice.Position = .back {
+        didSet {
+            videoCamera.location = captureDevicePosition == .back ? .backFacing : .frontFacing
+        }
+    }
     
     /// The beautyFace control capture shader filter empty or beauty
     @objc public var beautyFace = false
