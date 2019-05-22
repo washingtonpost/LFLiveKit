@@ -34,9 +34,6 @@ import Foundation
         }
     }
     
-    /// The beautyFace control capture shader filter empty or beauty
-    @objc public var beautyFace = false
-
     /// The torch control capture flash is on or off
     @objc  public var torch = false {
         didSet {
@@ -44,18 +41,19 @@ import Foundation
         }
     }
 
+    /* TODO: These need cooresponding filter and/or adjustments to work */
+    /// The beautyFace control capture shader filter empty or beauty
+    @objc public var beautyFace = false
     /// The mirror control mirror of front camera is on or off
     @objc public var mirror = false
-
     /// The beautyLevel control beautyFace Level, default 0.5, between 0.0 ~ 1.0
     @objc public var beautyLevel: CGFloat = 0.5
-
     /// The brightLevel control brightness Level, default 0.5, between 0.0 ~ 1.0
     @objc public var brightLevel: CGFloat = 0.5
-
     /// The zoom control camera zoom scale default 1.0, between 1.0 ~ 3.0
     @objc public var zoomScale: CGFloat = 1.0
 
+    
     @objc public var videoFrameRate: Int = 0
 
     @objc public var currentImage: UIImage?
@@ -73,6 +71,7 @@ import Foundation
         return view
     }()
 
+    // TODO: More filters?
     let filter = SaturationAdjustment()
 
     /// Images to RTMP
