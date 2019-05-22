@@ -17,17 +17,6 @@ import Foundation
 
     @objc public weak var delegate: VideoCaptureDelegate?
 
-    // TODO: This is how it was doing it using Obj-C. We can do better.
-    @objc public var running = false {
-        didSet {
-            if running {
-                begin()
-            } else {
-                end()
-            }
-        }
-    }
-
     @objc public var captureDevicePosition: AVCaptureDevice.Position = .back {
         didSet {
             videoCamera.location = captureDevicePosition == .back ? .backFacing : .frontFacing
@@ -141,12 +130,12 @@ import Foundation
         videoCamera --> filter --> renderView
         filter --> pictureOutput
 
-        UIApplication.shared.isIdleTimerDisabled = true
+        switchIdleTimer(to: true)
         videoCamera.startCapture()
     }
 
     @objc public func end() {
-        UIApplication.shared.isIdleTimerDisabled = false
+        switchIdleTimer(to: false)
         videoCamera.stopCapture()
     }
 
@@ -177,5 +166,11 @@ import Foundation
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
         
         return pixelBuffer
+    }
+
+    func switchIdleTimer(to enabled: Bool) {
+        DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = enabled
+        }
     }
 }

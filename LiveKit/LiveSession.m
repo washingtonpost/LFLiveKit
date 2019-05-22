@@ -93,7 +93,7 @@
 }
 
 - (void)dealloc {
-    _videoCaptureSource.running = NO;
+    [_videoCaptureSource end];
     _audioCaptureSource.running = NO;
 }
 
@@ -144,7 +144,6 @@
 
 #pragma mark -- EncoderDelegate
 - (void)audioEncoder:(nullable id<AudioEncoding>)encoder audioFrame:(nullable AudioFrame *)frame {
-    //<上传  时间戳对齐
     if (self.uploading){
         self.hasCaptureAudio = YES;
         if(self.AVAlignment) [self pushSendBuffer:frame];
@@ -152,7 +151,6 @@
 }
 
 - (void)videoEncoder:(nullable id<VideoEncoding>)encoder videoFrame:(nullable VideoFrame *)frame {
-    //<上传 时间戳对齐
     if (self.uploading){
         if(frame.isKeyFrame && self.hasCaptureAudio) self.hasKeyFrameVideo = YES;
         if(self.AVAlignment) [self pushSendBuffer:frame];
@@ -224,7 +222,7 @@
     [self willChangeValueForKey:@"running"];
     _running = running;
     [self didChangeValueForKey:@"running"];
-    self.videoCaptureSource.running = _running;
+    [self.videoCaptureSource begin];
     self.audioCaptureSource.running = _running;
 }
 
