@@ -77,6 +77,18 @@ public class Camera: NSObject, ImageSource, AVCaptureVideoDataOutputSampleBuffer
     var totalFrameTimeDuringCapture:Double = 0.0
     var framesSinceLastCheck = 0
     var lastCheckTime = CFAbsoluteTimeGetCurrent()
+
+    public var videoZoomScale: CGFloat = 1.0 {
+        didSet {
+            do {
+                try inputCamera.lockForConfiguration()
+                inputCamera.videoZoomFactor = videoZoomScale
+                inputCamera.unlockForConfiguration()
+            } catch {
+                print("Couldn't set zoom scale.")
+            }
+        }
+    }
     
     public init(sessionPreset:AVCaptureSession.Preset, cameraDevice:AVCaptureDevice? = nil, location:PhysicalCameraLocation = .backFacing, captureAsYUV:Bool = true) throws {
         self.location = location
@@ -166,7 +178,21 @@ public class Camera: NSObject, ImageSource, AVCaptureVideoDataOutputSampleBuffer
             self.videoOutput?.setSampleBufferDelegate(nil, queue:nil)
         }
     }
-    
+
+    public func toggleTorch(on: Bool) {
+        if inputCamera.hasTorch {
+            do {
+                try inputCamera.lockForConfiguration()
+                inputCamera.torchMode = on ? .on : .off
+                inputCamera.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
+    }
+
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         guard (frameRenderingSemaphore.wait(timeout:DispatchTime.now()) == DispatchTimeoutResult.success) else { return }

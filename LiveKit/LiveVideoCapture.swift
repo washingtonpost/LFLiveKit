@@ -26,7 +26,7 @@ import Foundation
     /// The torch control capture flash is on or off
     @objc  public var torch = false {
         didSet {
-            // TODO torch/flash mode
+            videoCamera.toggleTorch(on: torch)
         }
     }
 
@@ -40,8 +40,11 @@ import Foundation
     /// The brightLevel control brightness Level, default 0.5, between 0.0 ~ 1.0
     @objc public var brightLevel: CGFloat = 0.5
     /// The zoom control camera zoom scale default 1.0, between 1.0 ~ 3.0
-    @objc public var zoomScale: CGFloat = 1.0
-
+    @objc public var zoomScale: CGFloat = 1.0 {
+        didSet {
+            videoCamera.videoZoomScale = zoomScale
+        }
+    }
     
     @objc public var videoFrameRate: Int = 0
 
