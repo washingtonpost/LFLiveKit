@@ -8,6 +8,7 @@
 
 import AVKit
 import Foundation
+import UIKit
 
 @objc public protocol VideoCaptureDelegate {
     func captureOutput(capture: LiveVideoCapture?, pixelBuffer: CVPixelBuffer?)
@@ -88,7 +89,7 @@ import Foundation
                 renderView.removeFromSuperview()
             }
             newValue?.insertSubview(renderView, at: 0)
-            renderView.frame = CGRect(origin: .zero, size: renderView.frame.size)
+            renderView.fitInSuperviewWithConstraints()
         }
     }
 
@@ -114,9 +115,7 @@ import Foundation
             self?.begin()
         }
 
-        NotificationCenter.default.addObserver(forName: UIApplication.willChangeStatusBarFrameNotification, object: nil, queue: nil) { _ in
-            // TODO handle rotation?
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(statusBarChanged), name: UIApplication.willChangeStatusBarFrameNotification, object: nil)
     }
 
     deinit {
@@ -176,4 +175,28 @@ import Foundation
             UIApplication.shared.isIdleTimerDisabled = enabled
         }
     }
+
+    @objc func statusBarChanged(notification: Notification) {
+        if videoConfiguration.autorotate {
+            videoCamera.changeOrientation()
+        }
+    }
+
 }
+
+public extension UIView {
+
+    /// Fits view within a superview using entire superview bounds.
+    func fitInSuperviewWithConstraints() {
+        guard let superview = superview else {
+            return
+        }
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        let views = ["self": self]
+        superview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[self]|", options: [], metrics: nil, views: views))
+        superview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[self]|", options: [], metrics: nil, views: views))
+    }
+    
+}
+

@@ -132,6 +132,7 @@
     configuration.sessionPreset = [configuration supportSessionPreset:configuration.sessionPreset];
     configuration.videoMaxKeyframeInterval = configuration.videoFrameRate*2;
     configuration.outputImageOrientation = outputImageOrientation;
+    configuration.autorotate = YES;
     CGSize size = configuration.videoSize;
     if(configuration.landscape) {
         configuration.videoSize = CGSizeMake(size.height, size.width);
