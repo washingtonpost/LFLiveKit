@@ -102,7 +102,7 @@ public extension UIImage {
         }
     }
     
-    public func filterWithPipeline(_ pipeline:(PictureInput, PictureOutput) -> ()) -> UIImage {
+    func filterWithPipeline(_ pipeline:(PictureInput, PictureOutput) -> ()) -> UIImage {
         let picture = PictureInput(image:self)
         var outputImage:UIImage?
         let pictureOutput = PictureOutput()

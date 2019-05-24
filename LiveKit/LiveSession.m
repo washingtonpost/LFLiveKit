@@ -222,7 +222,11 @@
     [self willChangeValueForKey:@"running"];
     _running = running;
     [self didChangeValueForKey:@"running"];
-    [self.videoCaptureSource begin];
+    if (_running) {
+        [self.videoCaptureSource begin];
+    } else {
+         [self.videoCaptureSource end];
+    }
     self.audioCaptureSource.running = _running;
 }
 

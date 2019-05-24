@@ -22,7 +22,7 @@ infix operator --> : AdditionPrecedence
 //    associativity: left
 ////    higherThan: Multiplicative
 //}
-@discardableResult public func --><T:ImageConsumer>(source:ImageSource, destination:T) -> T {
+@discardableResult func --><T:ImageConsumer>(source:ImageSource, destination:T) -> T {
     source.addTarget(destination)
     return destination
 }
@@ -31,7 +31,7 @@ infix operator --> : AdditionPrecedence
 // MARK: Extensions and supporting types
 
 public extension ImageSource {
-    public func addTarget(_ target:ImageConsumer, atTargetIndex:UInt? = nil) {
+    func addTarget(_ target:ImageConsumer, atTargetIndex:UInt? = nil) {
         if let targetIndex = atTargetIndex {
             target.setSource(self, atIndex:targetIndex)
             targets.append(target, indexAtTarget:targetIndex)
@@ -44,14 +44,14 @@ public extension ImageSource {
         }
     }
 
-    public func removeAllTargets() {
+    func removeAllTargets() {
         for (target, index) in targets {
             target.removeSourceAtIndex(index)
         }
         targets.removeAll()
     }
     
-    public func updateTargetsWithTexture(_ texture:Texture) {
+    func updateTargetsWithTexture(_ texture:Texture) {
 //        if targets.count == 0 { // Deal with the case where no targets are attached by immediately returning framebuffer to cache
 //            framebuffer.lock()
 //            framebuffer.unlock()
@@ -68,15 +68,15 @@ public extension ImageSource {
 }
 
 public extension ImageConsumer {
-    public func addSource(_ source:ImageSource) -> UInt? {
+    func addSource(_ source:ImageSource) -> UInt? {
         return sources.append(source, maximumInputs:maximumInputs)
     }
     
-    public func setSource(_ source:ImageSource, atIndex:UInt) {
+    func setSource(_ source:ImageSource, atIndex:UInt) {
         _ = sources.insert(source, atIndex:atIndex, maximumInputs:maximumInputs)
     }
 
-    public func removeSourceAtIndex(_ index:UInt) {
+    func removeSourceAtIndex(_ index:UInt) {
         sources.removeAtIndex(index)
     }
 }
@@ -98,7 +98,7 @@ public class TargetContainer:Sequence {
     public init() {
     }
     
-    public func append(_ target:ImageConsumer, indexAtTarget:UInt) {
+    func append(_ target:ImageConsumer, indexAtTarget:UInt) {
         // TODO: Don't allow the addition of a target more than once
         dispatchQueue.async{
             self.targets.append(WeakImageConsumer(value:target, indexAtTarget:indexAtTarget))
@@ -127,7 +127,7 @@ public class TargetContainer:Sequence {
         }
     }
     
-    public func removeAll() {
+    func removeAll() {
         dispatchQueue.async{
             self.targets.removeAll()
         }
@@ -140,7 +140,7 @@ public class SourceContainer {
     public init() {
     }
     
-    public func append(_ source:ImageSource, maximumInputs:UInt) -> UInt? {
+    func append(_ source:ImageSource, maximumInputs:UInt) -> UInt? {
         var currentIndex:UInt = 0
         while currentIndex < maximumInputs {
             if (sources[currentIndex] == nil) {
@@ -153,13 +153,13 @@ public class SourceContainer {
         return nil
     }
     
-    public func insert(_ source:ImageSource, atIndex:UInt, maximumInputs:UInt) -> UInt {
+    func insert(_ source:ImageSource, atIndex:UInt, maximumInputs:UInt) -> UInt {
         guard (atIndex < maximumInputs) else { fatalError("ERROR: Attempted to set a source beyond the maximum number of inputs on this operation") }
         sources[atIndex] = source
         return atIndex
     }
     
-    public func removeAtIndex(_ index:UInt) {
+    func removeAtIndex(_ index:UInt) {
         sources[index] = nil
     }
 }
@@ -188,7 +188,7 @@ public class ImageRelay: ImageProcessingOperation {
         }
     }
     
-    public func relayTextureOnward(_ texture:Texture) {
+    func relayTextureOnward(_ texture:Texture) {
         // Need to override to guarantee a removal of the previously applied lock
 //        for _ in targets {
 //            framebuffer.lock()
