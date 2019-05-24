@@ -147,7 +147,7 @@ NSInteger frameDataCompare(id obj1, id obj2, void *context){
     return NSOrderedAscending;
 }
 
-- (LiveBuffferState)currentBufferState {
+- (LiveBufferState)currentBufferState {
     NSInteger currentCount = 0;
     NSInteger increaseCount = 0;
     NSInteger decreaseCount = 0;
@@ -162,14 +162,14 @@ NSInteger frameDataCompare(id obj1, id obj2, void *context){
     }
 
     if (increaseCount >= self.callBackInterval) {
-        return LiveBuffferIncrease;
+        return LiveBufferIncrease;
     }
 
     if (decreaseCount >= self.callBackInterval) {
-        return LiveBuffferDecline;
+        return LiveBufferDecline;
     }
     
-    return LiveBuffferUnknown;
+    return LiveBufferUnknown;
 }
 
 #pragma mark -- Setter Getter
@@ -204,14 +204,14 @@ NSInteger frameDataCompare(id obj1, id obj2, void *context){
     dispatch_semaphore_signal(_lock);
     
     if (self.currentInterval >= self.callBackInterval) {
-        LiveBuffferState state = [self currentBufferState];
-        if (state == LiveBuffferIncrease) {
+        LiveBufferState state = [self currentBufferState];
+        if (state == LiveBufferIncrease) {
             if (self.delegate && [self.delegate respondsToSelector:@selector(streamingBuffer:bufferState:)]) {
-                [self.delegate streamingBuffer:self bufferState:LiveBuffferIncrease];
+                [self.delegate streamingBuffer:self bufferState:LiveBufferIncrease];
             }
-        } else if (state == LiveBuffferDecline) {
+        } else if (state == LiveBufferDecline) {
             if (self.delegate && [self.delegate respondsToSelector:@selector(streamingBuffer:bufferState:)]) {
-                [self.delegate streamingBuffer:self bufferState:LiveBuffferDecline];
+                [self.delegate streamingBuffer:self bufferState:LiveBufferDecline];
             }
         }
 

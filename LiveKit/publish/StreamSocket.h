@@ -17,7 +17,7 @@
 @protocol StreamSocketDelegate <NSObject>
 
 /** callback buffer current status (回调当前缓冲区情况，可实现相关切换帧率 码率等策略)*/
-- (void)socketBufferStatus:(nullable id <StreamSocket>)socket status:(LiveBuffferState)status;
+- (void)socketBufferStatus:(nullable id <StreamSocket>)socket status:(LiveBufferState)status;
 /** callback socket current status (回调当前网络情况) */
 - (void)socketStatus:(nullable id <StreamSocket>)socket status:(LiveState)status;
 /** callback socket errorcode */

@@ -6,13 +6,15 @@
 import UIKit
 import LiveKit
 
-class ViewController: UIViewController, LiveSessionDelegate {
+class ViewController: UIViewController {
     
+    var cameraPosition: AVCaptureDevice.Position = .back
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        session.delegate = self
+        //session.delegate = self
         session.previewImageView = view
         
         self.requestAccessForVideo()
@@ -51,14 +53,14 @@ class ViewController: UIViewController, LiveSessionDelegate {
         case AVAuthorizationStatus.notDetermined:
             AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted) in
                 if(granted){
-                    DispatchQueue.main.async {
-                        self.session.running = true
+                    DispatchQueue.main.async { [weak self] in
+                        self?.session.beginRunning()
                     }
                 }
             })
             break;
         case AVAuthorizationStatus.authorized:
-            session.running = true;
+            session.beginRunning()
             break;
         case AVAuthorizationStatus.denied: break
         case AVAuthorizationStatus.restricted:break;
@@ -83,40 +85,7 @@ class ViewController: UIViewController, LiveSessionDelegate {
             break;
         }
     }
-    
-    //MARK: - Callbacks
 
-    func liveSession(_ session: LiveSession?, debugInfo: LiveDebug?) {
-        print("debugInfo: \(String(describing: debugInfo?.currentBandwidth))")
-    }
-    
-    func liveSession(_ session: LiveSession?, errorCode: LiveSocketErrorCode) {
-        print("errorCode: \(errorCode.rawValue)")
-    }
-    
-    func liveSession(_ session: LiveSession?, liveStateDidChange state: LiveState) {
-        print("liveStateDidChange: \(state.rawValue)")
-        switch state {
-        case LiveState.ready:
-            stateLabel.text = "Ready"
-            break;
-        case LiveState.pending:
-            stateLabel.text = "Pending"
-            break;
-        case LiveState.start:
-            stateLabel.text = "Start"
-            break;
-        case LiveState.error:
-            stateLabel.text = "Error"
-            break;
-        case LiveState.stop:
-            stateLabel.text = "Stop"
-            break;
-        default:
-                break;
-        }
-    }
-    
     //MARK: - Events
 
     @objc func didTappedStartLiveButton(_ button: UIButton) -> Void {
@@ -133,8 +102,9 @@ class ViewController: UIViewController, LiveSessionDelegate {
     }
 
     @objc func didTappedCameraButton(_ button: UIButton) -> Void {
-        let devicePositon = session.captureDevicePosition;
-        session.captureDevicePosition = (devicePositon == AVCaptureDevice.Position.back) ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back;
+        let currentPosition = cameraPosition
+        cameraPosition = currentPosition == .back ? .front : .back
+        session.toggleDevicePosition(to: cameraPosition)
     }
 
     func didTappedCloseButton(_ button: UIButton) -> Void  {
@@ -144,10 +114,10 @@ class ViewController: UIViewController, LiveSessionDelegate {
     //MARK: - Getters and Setters
 
     var session: LiveSession = {
-        let audioConfiguration = LiveAudioConfiguration.defaultConfiguration(for: LiveAudioQuality.high)
-        let videoConfiguration = LiveVideoConfiguration.defaultConfiguration(for: LiveVideoQuality.low3)
-        let session = LiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)
-        return session!
+        let audioConfiguration = LiveAudioConfiguration.defaultConfiguration(for: LiveAudioQuality.high)!
+        let videoConfiguration = LiveVideoConfiguration.defaultConfiguration(for: LiveVideoQuality.low3)!
+        let session = LiveSession(with: audioConfiguration, videoConfiguration: videoConfiguration)
+        return session
     }()
 
     var containerView: UIView = {
@@ -185,5 +155,43 @@ class ViewController: UIViewController, LiveSessionDelegate {
         startLiveButton.titleLabel!.font = UIFont.systemFont(ofSize: 14)
         return startLiveButton
     }()
+}
+
+extension ViewController: LiveSessionDelegate {
+    func stateChange(to state: LiveState) {
+        print("liveStateDidChange: \(state.rawValue)")
+        switch state {
+        case LiveState.ready:
+            stateLabel.text = "Ready"
+            break;
+        case LiveState.pending:
+            stateLabel.text = "Pending"
+            break;
+        case LiveState.start:
+            stateLabel.text = "Start"
+            break;
+        case LiveState.error:
+            stateLabel.text = "Error"
+            break;
+        case LiveState.stop:
+            stateLabel.text = "Stop"
+            break;
+        default:
+            break;
+        }
+    }
+    
+    func liveDebugInfo(info: LiveDebug) {
+        
+    }
+    
+    func didError(with code: LiveSocketErrorCode) {
+        print("errorCode: \(code.rawValue)")
+    }
+
+    func liveSession(_ session: LiveSession?, debugInfo: LiveDebug?) {
+        print("debugInfo: \(String(describing: debugInfo?.currentBandwidth))")
+    }
+
 }
 

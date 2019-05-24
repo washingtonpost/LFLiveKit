@@ -12,10 +12,10 @@
 
 
 /** current buffer status */
-typedef NS_ENUM (NSUInteger, LiveBuffferState) {
-    LiveBuffferUnknown = 0,      //< 未知
-    LiveBuffferIncrease = 1,    //< 缓冲区状态差应该降低码率
-    LiveBuffferDecline = 2      //< 缓冲区状态好应该提升码率
+typedef NS_ENUM (NSUInteger, LiveBufferState) {
+    LiveBufferUnknown = 0,      //< 未知
+    LiveBufferIncrease = 1,    //< 缓冲区状态差应该降低码率
+    LiveBufferDecline = 2      //< 缓冲区状态好应该提升码率
 };
 
 @class StreamingBuffer;
@@ -23,7 +23,7 @@ typedef NS_ENUM (NSUInteger, LiveBuffferState) {
 @protocol StreamingBufferDelegate <NSObject>
 @optional
 /** 当前buffer变动（增加or减少） 根据buffer中的updateInterval时间回调*/
-- (void)streamingBuffer:(nullable StreamingBuffer *)buffer bufferState:(LiveBuffferState)state;
+- (void)streamingBuffer:(nullable StreamingBuffer *)buffer bufferState:(LiveBufferState)state;
 @end
 
 @interface StreamingBuffer : NSObject

@@ -18,5 +18,14 @@
 #import "VideoFrame.h"
 #import "LiveDebug.h"
 
+#import "VideoEncoding.h"
+#import "AudioEncoding.h"
+
+#import "StreamRTMPSocket.h"
+
+#import "AudioCapture.h"
+#import "LFHardwareAudioEncoder.h"
+#import "LFHardwareVideoEncoder.h"
+
 #endif
 
