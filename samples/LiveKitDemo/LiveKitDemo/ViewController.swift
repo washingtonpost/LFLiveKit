@@ -95,6 +95,9 @@ class ViewController: UIViewController {
 //            let stream = LiveStreamInfo()
 //            stream.url = "rtmp://live.hkstv.hk.lxdns.com:1935/live/stream153"
 //            session.startLive(stream)
+            let stream = LiveStreamInfo()
+            stream.url = "rtmp://18.211.251.191:1935/live/primary"
+            session.startLive(with: stream)
         } else {
             startLiveButton.setTitle("STOP", for: UIControl.State())
             session.stopLive()

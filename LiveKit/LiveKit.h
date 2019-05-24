@@ -9,7 +9,6 @@
 #ifndef LiveKit_h
 #define LiveKit_h
 
-#import "LiveSession.h"
 #import "LiveAudioConfiguration.h"
 #import "LiveVideoConfiguration.h"
 #import "AudioFrame.h"

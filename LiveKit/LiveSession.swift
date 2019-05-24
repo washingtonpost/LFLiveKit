@@ -81,11 +81,16 @@ public class LiveSession: NSObject {
     }
 
     var lock = DispatchSemaphore(value: 1)
-    // TODO?
     var relativeTimestamp: UInt64 = 0
-    var AVAlignment = true
-    var hasCaptureAudio = true
-    var hasKeyFrameVideo = true
+    var AVAlignment: Bool {
+        guard (captureType.contains(.inputAudio) || captureType.contains(.captureAudio)) && (captureType.contains(.inputVideo) || captureType.contains(.captureVideo)) else {
+            return true
+        }
+        return hasCaptureAudio && hasKeyFrameVideo
+    }
+    
+    var hasCaptureAudio = false
+    var hasKeyFrameVideo = false
 
     lazy var socket: StreamRTMPSocket? = {
         let rtmpSocket = StreamRTMPSocket(stream: streamInfo, reconnectInterval: reconnectInterval, reconnectCount: reconnectCount)
@@ -159,9 +164,10 @@ public class LiveSession: NSObject {
 
     /// Support outer input yuv or rgb video(set LiveCaptureTypeMask)
     func pushVideo(pixelBuffer: CVPixelBuffer?) {
-//        if(self.captureType & LiveInputMaskVideo){
-//            if (self.uploading) [self.videoEncoder encodeVideoData:pixelBuffer timeStamp:NOW];
-//        }
+        guard captureType.contains(.inputVideo) else {
+            return
+        }
+
         if isUploading {
             videoEncoder?.encodeVideoData(pixelBuffer, timeStamp: UInt64(CACurrentMediaTime()*1000))
         }
@@ -169,9 +175,10 @@ public class LiveSession: NSObject {
 
     /// Support outer input pcm audio(set LiveCaptureTypeMask)
     func pushAudio(audioData: Data?) {
-//        if(self.captureType & LiveInputMaskAudio){
-//            if (self.uploading) [self.audioEncoder encodeAudioData:audioData timeStamp:NOW];
-//        }
+        guard captureType.contains(.inputAudio) else {
+            return
+        }
+
         if isUploading {
             audioEncoder?.encodeAudioData(audioData, timeStamp: UInt64(CACurrentMediaTime()*1000))
         }
@@ -280,10 +287,8 @@ extension LiveSession: StreamSocketDelegate {
     }
     
     public func socketStatus(_ socket: StreamSocket?, status: LiveState) {
-
         switch status {
         case .start:
-            AVAlignment = false
             hasCaptureAudio = false
             hasKeyFrameVideo = false
             relativeTimestamp = 0
