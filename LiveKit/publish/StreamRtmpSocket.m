@@ -14,7 +14,7 @@
 #import "rtmp.h"
 #endif
 
-static const NSInteger RetryTimesBreaken = 5;  ///<  重连1分钟  3秒一次 一共20次
+static const NSInteger RetryTimesBreaken = 5;  ////  重连1分钟  3秒一次 一共20次
 static const NSInteger RetryTimesMargin = 3;
 
 
@@ -225,7 +225,7 @@ SAVC(mp4a);
             
             //修改发送状态
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                //< 这里只为了不循环调用sendFrame方法 调用栈是保证先出栈再进栈
+                /// 这里只为了不循环调用sendFrame方法 调用栈是保证先出栈再进栈
                 _self.isSending = NO;
             });
             

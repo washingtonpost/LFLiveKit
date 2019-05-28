@@ -13,9 +13,9 @@
 
 /** current buffer status */
 typedef NS_ENUM (NSUInteger, LiveBufferState) {
-    LiveBufferUnknown = 0,      //< 未知
-    LiveBufferIncrease = 1,    //< 缓冲区状态差应该降低码率
-    LiveBufferDecline = 2      //< 缓冲区状态好应该提升码率
+    LiveBufferUnknown = 0,      /// 未知
+    LiveBufferIncrease = 1,    /// 缓冲区状态差应该降低码率
+    LiveBufferDecline = 2      /// 缓冲区状态好应该提升码率
 };
 
 @class StreamingBuffer;

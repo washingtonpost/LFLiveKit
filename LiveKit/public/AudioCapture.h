@@ -41,8 +41,8 @@ extern NSString *_Nullable const AudioComponentFailedToCreateNotification;
 ///=============================================================================
 /// @name Initializer
 ///=============================================================================
-- (nullable instancetype)init UNAVAILABLE_ATTRIBUTE;
-+ (nullable instancetype)new UNAVAILABLE_ATTRIBUTE;
+///- (nullable instancetype)init UNAVAILABLE_ATTRIBUTE;
+///+ (nullable instancetype)new UNAVAILABLE_ATTRIBUTE;
 
 /**
    The designated initializer. Multiple instances with the same configuration will make the
