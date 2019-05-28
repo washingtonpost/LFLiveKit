@@ -24,12 +24,11 @@
 		5EB4B5262294599100D520D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B5192294599100D520D6 /* LaunchScreen.storyboard */; };
 		5EB4B5272294599100D520D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B51B2294599100D520D6 /* Main.storyboard */; };
 		5EB4B52D22948E9800D520D6 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB4B52C22948E9800D520D6 /* Metal.framework */; };
-		8A9303F46C964BAFB67A97F4 /* Pods_LiveKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7E5FB66AB2BCFEE2A5BA9E /* Pods_LiveKitDemo.framework */; };
+		B59447B34D0DCC3EE97A7F36 /* Pods_LiveKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9BA4EB10D6B6D35EAA9464 /* Pods_LiveKitDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13D12E642E692EED6B67F1C2 /* Pods-LiveKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		5A7E5FB66AB2BCFEE2A5BA9E /* Pods_LiveKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CD1DFB9BE010140B6C844DB /* Pods-LiveKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		5EB4B4F82294590300D520D6 /* LiveKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EB4B4FB2294590300D520D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EB4B4FD2294590300D520D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +49,8 @@
 		5EB4B51A2294599100D520D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EB4B51C2294599100D520D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		5EB4B52C22948E9800D520D6 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		C1F7E6E628955FFEBF1E4E8C /* Pods-LiveKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitDemo.release.xcconfig"; path = "Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo.release.xcconfig"; sourceTree = "<group>"; };
+		861ADF921C21619B8B136CAA /* Pods-LiveKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitDemo.release.xcconfig"; path = "Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo.release.xcconfig"; sourceTree = "<group>"; };
+		9D9BA4EB10D6B6D35EAA9464 /* Pods_LiveKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EB4B52D22948E9800D520D6 /* Metal.framework in Frameworks */,
-				8A9303F46C964BAFB67A97F4 /* Pods_LiveKitDemo.framework in Frameworks */,
+				B59447B34D0DCC3EE97A7F36 /* Pods_LiveKitDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				5EB4B52C22948E9800D520D6 /* Metal.framework */,
-				5A7E5FB66AB2BCFEE2A5BA9E /* Pods_LiveKitDemo.framework */,
+				9D9BA4EB10D6B6D35EAA9464 /* Pods_LiveKitDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -137,8 +137,8 @@
 		E21B09F407A6CBA98379E8E3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				13D12E642E692EED6B67F1C2 /* Pods-LiveKitDemo.debug.xcconfig */,
-				C1F7E6E628955FFEBF1E4E8C /* Pods-LiveKitDemo.release.xcconfig */,
+				0CD1DFB9BE010140B6C844DB /* Pods-LiveKitDemo.debug.xcconfig */,
+				861ADF921C21619B8B136CAA /* Pods-LiveKitDemo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -150,11 +150,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EB4B50A2294590500D520D6 /* Build configuration list for PBXNativeTarget "LiveKitDemo" */;
 			buildPhases = (
-				BFAA88647FDEEEA40413A5AC /* [CP] Check Pods Manifest.lock */,
+				7127213FCA7B2CB39A93B9C1 /* [CP] Check Pods Manifest.lock */,
 				5EB4B4F42294590300D520D6 /* Sources */,
 				5EB4B4F52294590300D520D6 /* Frameworks */,
 				5EB4B4F62294590300D520D6 /* Resources */,
-				13EAA748F6E15A06122F374C /* [CP] Embed Pods Frameworks */,
+				AA2BF31672FBECDCEC92B9D2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -223,24 +223,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		13EAA748F6E15A06122F374C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BFAA88647FDEEEA40413A5AC /* [CP] Check Pods Manifest.lock */ = {
+		7127213FCA7B2CB39A93B9C1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -260,6 +243,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA2BF31672FBECDCEC92B9D2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LiveKit/LiveKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LiveKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -430,7 +435,7 @@
 		};
 		5EB4B50B2294590500D520D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13D12E642E692EED6B67F1C2 /* Pods-LiveKitDemo.debug.xcconfig */;
+			baseConfigurationReference = 0CD1DFB9BE010140B6C844DB /* Pods-LiveKitDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -449,7 +454,7 @@
 		};
 		5EB4B50C2294590500D520D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1F7E6E628955FFEBF1E4E8C /* Pods-LiveKitDemo.release.xcconfig */;
+			baseConfigurationReference = 861ADF921C21619B8B136CAA /* Pods-LiveKitDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

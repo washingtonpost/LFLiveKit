@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/washingtonpost/ios-livekit.git", :tag => "#{s.version}" }
   s.source_files  = "LiveKit/**/*"
-  s.public_header_files = ['LiveKit/*.h', 'LiveKit/objects/*.h', 'LiveKit/configuration/*.h']
+  s.public_header_files = ['LiveKit/*.h', 'LiveKit/public/*.h']
 
   s.preserve_paths = "LiveKit.framework/*"
   s.resources = "LiveKit.framework/*.metallib"
