@@ -255,12 +255,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/LiveKit/LiveKit.framework",
+				"${BUILT_PRODUCTS_DIR}/pili-librtmp/pili_librtmp.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LiveKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pili_librtmp.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

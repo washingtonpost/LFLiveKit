@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
   s.preserve_paths = "LiveKit.framework/*"
   s.resources = "LiveKit.framework/*.metallib"
 
+  s.dependency 'pili-librtmp'
   # s.dependency 'EVGPUImage2' (GPUImage2 - swift )
 
   s.frameworks = "VideoToolbox", "AudioToolbox","AVFoundation","Foundation","UIKit", "Metal", "CoreGraphics"
