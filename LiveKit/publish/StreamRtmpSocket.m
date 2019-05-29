@@ -128,7 +128,7 @@ SAVC(mp4a);
 
 - (void)_stop {
     if (self.delegate && [self.delegate respondsToSelector:@selector(socketStatus:status:)]) {
-        [self.delegate socketStatus:self status:LiveStop];
+        [self.delegate socketStatus:self status:LiveEnded];
     }
     if (_rtmp != NULL) {
         PILI_RTMP_Close(_rtmp, &_error);
@@ -272,7 +272,7 @@ SAVC(mp4a);
     }
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(socketStatus:status:)]) {
-        [self.delegate socketStatus:self status:LiveStart];
+        [self.delegate socketStatus:self status:LiveBroadcasting];
     }
 
     [self sendMetaData];

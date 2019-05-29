@@ -19,9 +19,9 @@ typedef NS_ENUM (NSUInteger, LiveState){
     /// 连接中
     LivePending = 1,
     /// 已连接
-    LiveStart = 2,
+    LiveBroadcasting = 2,
     /// 已断开
-    LiveStop = 3,
+    LiveEnded = 3,
     /// 连接出错
     LiveError = 4,
     ///  正在刷新
