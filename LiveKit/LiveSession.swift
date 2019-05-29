@@ -284,12 +284,12 @@ extension LiveSession: StreamSocketDelegate {
     
     public func socketStatus(_ socket: StreamSocket?, status: LiveState) {
         switch status {
-        case .start:
+        case .broadcasting:
             hasCaptureAudio = false
             hasKeyFrameVideo = false
             relativeTimestamp = 0
             isUploading = true
-        case .stop, .error:
+        case .ended, .error:
             isUploading = false
         default:
             break
