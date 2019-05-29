@@ -3,15 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E90B9AB229ED19E00C4800C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E90B9A9229ED19E00C4800C /* LaunchScreen.storyboard */; };
+		5E90B9AC229ED19E00C4800C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E90B9AA229ED19E00C4800C /* Main.storyboard */; };
 		5EB4B4FC2294590300D520D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB4B4FB2294590300D520D6 /* AppDelegate.swift */; };
 		5EB4B4FE2294590300D520D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB4B4FD2294590300D520D6 /* ViewController.swift */; };
-		5EB4B5012294590300D520D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B4FF2294590300D520D6 /* Main.storyboard */; };
-		5EB4B5032294590500D520D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B5022294590500D520D6 /* Assets.xcassets */; };
-		5EB4B5062294590500D520D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B5042294590500D520D6 /* LaunchScreen.storyboard */; };
 		5EB4B51D2294599100D520D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B50D2294599100D520D6 /* Assets.xcassets */; };
 		5EB4B51E2294599100D520D6 /* camra_beauty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B50F2294599100D520D6 /* camra_beauty@3x.png */; };
 		5EB4B51F2294599100D520D6 /* camra_beauty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B5102294599100D520D6 /* camra_beauty@2x.png */; };
@@ -21,20 +20,17 @@
 		5EB4B5232294599100D520D6 /* close_preview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B5142294599100D520D6 /* close_preview@2x.png */; };
 		5EB4B5242294599100D520D6 /* camra_preview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B5152294599100D520D6 /* camra_preview@2x.png */; };
 		5EB4B5252294599100D520D6 /* camra_preview@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B5162294599100D520D6 /* camra_preview@3x.png */; };
-		5EB4B5262294599100D520D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B5192294599100D520D6 /* LaunchScreen.storyboard */; };
-		5EB4B5272294599100D520D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EB4B51B2294599100D520D6 /* Main.storyboard */; };
 		5EB4B52D22948E9800D520D6 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB4B52C22948E9800D520D6 /* Metal.framework */; };
 		B59447B34D0DCC3EE97A7F36 /* Pods_LiveKitDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9BA4EB10D6B6D35EAA9464 /* Pods_LiveKitDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0CD1DFB9BE010140B6C844DB /* Pods-LiveKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitDemo.debug.xcconfig"; path = "Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		5E90B9A9229ED19E00C4800C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LiveKitDemo/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
+		5E90B9AA229ED19E00C4800C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = LiveKitDemo/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		5EB4B4F82294590300D520D6 /* LiveKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EB4B4FB2294590300D520D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EB4B4FD2294590300D520D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5EB4B5002294590300D520D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5EB4B5022294590500D520D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5EB4B5052294590500D520D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EB4B5072294590500D520D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EB4B50D2294599100D520D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EB4B50F2294599100D520D6 /* camra_beauty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camra_beauty@3x.png"; sourceTree = "<group>"; };
@@ -46,8 +42,6 @@
 		5EB4B5152294599100D520D6 /* camra_preview@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camra_preview@2x.png"; sourceTree = "<group>"; };
 		5EB4B5162294599100D520D6 /* camra_preview@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camra_preview@3x.png"; sourceTree = "<group>"; };
 		5EB4B5172294599100D520D6 /* LiveKitSwiftDemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LiveKitSwiftDemo-Bridging-Header.h"; sourceTree = "<group>"; };
-		5EB4B51A2294599100D520D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		5EB4B51C2294599100D520D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		5EB4B52C22948E9800D520D6 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		861ADF921C21619B8B136CAA /* Pods-LiveKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveKitDemo.release.xcconfig"; path = "Target Support Files/Pods-LiveKitDemo/Pods-LiveKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		9D9BA4EB10D6B6D35EAA9464 /* Pods_LiveKitDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveKitDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,9 +96,6 @@
 				5EB4B5172294599100D520D6 /* LiveKitSwiftDemo-Bridging-Header.h */,
 				5EB4B4FB2294590300D520D6 /* AppDelegate.swift */,
 				5EB4B4FD2294590300D520D6 /* ViewController.swift */,
-				5EB4B4FF2294590300D520D6 /* Main.storyboard */,
-				5EB4B5022294590500D520D6 /* Assets.xcassets */,
-				5EB4B5042294590500D520D6 /* LaunchScreen.storyboard */,
 				5EB4B5072294590500D520D6 /* Info.plist */,
 			);
 			path = LiveKitDemo;
@@ -128,8 +119,8 @@
 		5EB4B5182294599100D520D6 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				5EB4B5192294599100D520D6 /* LaunchScreen.storyboard */,
-				5EB4B51B2294599100D520D6 /* Main.storyboard */,
+				5E90B9A9229ED19E00C4800C /* LaunchScreen.storyboard */,
+				5E90B9AA229ED19E00C4800C /* Main.storyboard */,
 			);
 			path = Base.lproj;
 			sourceTree = "<group>";
@@ -204,15 +195,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EB4B5212294599100D520D6 /* camra_beauty_close@2x.png in Resources */,
-				5EB4B5062294590500D520D6 /* LaunchScreen.storyboard in Resources */,
-				5EB4B5032294590500D520D6 /* Assets.xcassets in Resources */,
+				5E90B9AB229ED19E00C4800C /* LaunchScreen.storyboard in Resources */,
 				5EB4B5222294599100D520D6 /* close_preview@3x.png in Resources */,
 				5EB4B51D2294599100D520D6 /* Assets.xcassets in Resources */,
-				5EB4B5012294590300D520D6 /* Main.storyboard in Resources */,
 				5EB4B5232294599100D520D6 /* close_preview@2x.png in Resources */,
-				5EB4B5272294599100D520D6 /* Main.storyboard in Resources */,
-				5EB4B5262294599100D520D6 /* LaunchScreen.storyboard in Resources */,
 				5EB4B5252294599100D520D6 /* camra_preview@3x.png in Resources */,
+				5E90B9AC229ED19E00C4800C /* Main.storyboard in Resources */,
 				5EB4B5202294599100D520D6 /* camra_beauty_close@3x.png in Resources */,
 				5EB4B51E2294599100D520D6 /* camra_beauty@3x.png in Resources */,
 				5EB4B5242294599100D520D6 /* camra_preview@2x.png in Resources */,
@@ -282,41 +270,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		5EB4B4FF2294590300D520D6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5EB4B5002294590300D520D6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5EB4B5042294590500D520D6 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5EB4B5052294590500D520D6 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		5EB4B5192294599100D520D6 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5EB4B51A2294599100D520D6 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		5EB4B51B2294599100D520D6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5EB4B51C2294599100D520D6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5EB4B5082294590500D520D6 /* Debug */ = {

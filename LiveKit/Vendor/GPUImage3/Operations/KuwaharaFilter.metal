@@ -107,6 +107,9 @@ fragment half4 kuwaharaFragment(SingleInputVertexIO fragmentInput [[stage_in]],
         min_sigma2 = sigma2;
         return half4(half3(m3), 1.0);
     }
+
+    // shouldn't reach here
+    return half4(half3(m0), 1.0);
 }
 
 /*

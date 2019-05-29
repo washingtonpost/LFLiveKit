@@ -38,16 +38,13 @@ extern NSString *_Nullable const AudioComponentFailedToCreateNotification;
 @property (nonatomic, assign) BOOL running;
 
 #pragma mark - Initializer
-///=============================================================================
-/// @name Initializer
-///=============================================================================
-///- (nullable instancetype)init UNAVAILABLE_ATTRIBUTE;
-///+ (nullable instancetype)new UNAVAILABLE_ATTRIBUTE;
 
 /**
    The designated initializer. Multiple instances with the same configuration will make the
    capture unstable.
  */
 - (nullable instancetype)initWithAudioConfiguration:(nullable LiveAudioConfiguration *)configuration NS_DESIGNATED_INITIALIZER;
+
+- (nonnull instancetype)init NS_UNAVAILABLE;
 
 @end

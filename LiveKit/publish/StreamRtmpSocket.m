@@ -7,14 +7,7 @@
 //
 
 #import "StreamRTMPSocket.h"
-
-#if __has_include(<pili-librtmp/rtmp.h>)
-#import <pili-librtmp/rtmp.h>
-#else
-#import "rtmp.h"
-#endif
-
-#import <pili_librtmp/rtmp.h>
+@import pili_librtmp;
 
 static const NSInteger RetryTimesBreaken = 5;  ////  重连1分钟  3秒一次 一共20次
 static const NSInteger RetryTimesMargin = 3;
