@@ -170,13 +170,13 @@ extension ViewController: LiveSessionDelegate {
         case LiveState.pending:
             stateLabel.text = "Pending"
             break;
-        case LiveState.start:
+        case LiveState.broadcasting:
             stateLabel.text = "Start"
             break;
         case LiveState.error:
             stateLabel.text = "Error"
             break;
-        case LiveState.stop:
+        case LiveState.ended:
             stateLabel.text = "Stop"
             break;
         default:

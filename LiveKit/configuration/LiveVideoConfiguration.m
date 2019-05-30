@@ -207,9 +207,12 @@
 - (LiveVideoSessionPreset)supportSessionPreset:(LiveVideoSessionPreset)sessionPreset {
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
     AVCaptureDevice *inputCamera;
-    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    for (AVCaptureDevice *device in devices){
-        if ([device position] == AVCaptureDevicePositionFront){
+    AVCaptureDeviceDiscoverySession *captureDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:@[AVCaptureDeviceTypeBuiltInWideAngleCamera]
+                                                                                                        mediaType:AVMediaTypeVideo
+                                                                                                                             position:AVCaptureDevicePositionBack];
+    NSArray *captureDevices = [captureDeviceDiscoverySession devices];
+    for (AVCaptureDevice *device in captureDevices){
+        if ([device position] == AVCaptureDevicePositionBack){
             inputCamera = device;
         }
     }
@@ -356,7 +359,7 @@
     NSMutableString *desc = @"".mutableCopy;
     [desc appendFormat:@"<LiveVideoConfiguration: %p>", self];
     [desc appendFormat:@" videoSize:%@", NSStringFromCGSize(self.videoSize)];
-    [desc appendFormat:@" videoSizeRespectingAspectRatio:%zi",self.videoSizeRespectingAspectRatio];
+    [desc appendFormat:@" videoSizeRespectingAspectRatio:%c",self.videoSizeRespectingAspectRatio];
     [desc appendFormat:@" videoFrameRate:%zi", self.videoFrameRate];
     [desc appendFormat:@" videoMaxFrameRate:%zi", self.videoMaxFrameRate];
     [desc appendFormat:@" videoMinFrameRate:%zi", self.videoMinFrameRate];
@@ -367,7 +370,7 @@
     [desc appendFormat:@" avSessionPreset:%@", self.avSessionPreset];
     [desc appendFormat:@" sessionPreset:%zi", self.sessionPreset];
     [desc appendFormat:@" outputImageOrientation:%zi", self.outputImageOrientation];
-    [desc appendFormat:@" autorotate:%zi", self.autorotate];
+    [desc appendFormat:@" autorotate:%c", self.autorotate];
     return desc;
 }
 

@@ -16,8 +16,7 @@ fragment half4 CGAColorspaceFragment(SingleInputVertexIO fragmentInput [[stage_i
     half4 colorMagenta = half4(1.0h, 85.0h / 255.0h, 1.0h, 1.0h);
     half4 colorWhite = half4(1.0h);
     half4 colorBlack = half4(0.0h, 0.0h, 0.0h, 1.0h);
-    
-    half4 endColor;
+
     half blackDistance = distance(color, colorBlack);
     half whiteDistance = distance(color, colorWhite);
     half magentaDistance = distance(color, colorMagenta);

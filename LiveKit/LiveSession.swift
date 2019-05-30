@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
+/// Capture audio, video.
 public enum LiveCaptureType: Int {
     case captureAudio
     case captureVideo
-    case inputAudio
-    case inputVideo
 }
 
+/// Mask for defining audio/video capture
 public struct LiveCaptureTypeMask: OptionSet {
     public let rawValue: Int
     
@@ -25,16 +25,9 @@ public struct LiveCaptureTypeMask: OptionSet {
 
     public static let captureAudio = LiveCaptureTypeMask(rawValue: 1 << LiveCaptureType.captureAudio.rawValue)
     public static let captureVideo = LiveCaptureTypeMask(rawValue: 1 << LiveCaptureType.captureVideo.rawValue)
-    public static let inputAudio   = LiveCaptureTypeMask(rawValue: 1 << LiveCaptureType.inputAudio.rawValue)
-    public static let inputVideo   = LiveCaptureTypeMask(rawValue: 1 << LiveCaptureType.inputVideo.rawValue)
 
     public static let captureAll: LiveCaptureTypeMask = [.captureAudio, .captureVideo]
-    public static let inputAll: LiveCaptureTypeMask = [.inputAudio, .inputVideo]
 
-    /// inner capture audio and outer input video (method pushVideo and setRunning)
-    public static let audioInputVideo: LiveCaptureTypeMask = [.captureAudio, .inputVideo]
-    /// inner capture video and outer input audio (method pushAudio and setRunning)
-    public static let videoInputAudio: LiveCaptureTypeMask = [.captureVideo, .inputAudio]
 }
 
 public protocol LiveSessionDelegate: class {
@@ -83,7 +76,8 @@ public class LiveSession: NSObject {
     var lock = DispatchSemaphore(value: 1)
     var relativeTimestamp: UInt64 = 0
     var AVAlignment: Bool {
-        guard (captureType.contains(.inputAudio) || captureType.contains(.captureAudio)) && (captureType.contains(.inputVideo) || captureType.contains(.captureVideo)) else {
+        guard captureType.contains(.captureAudio) &&
+                captureType.contains(.captureVideo) else {
             return true
         }
         return hasCaptureAudio && hasKeyFrameVideo
@@ -131,7 +125,10 @@ public class LiveSession: NSObject {
     deinit {
         videoCaptureSource.end()
     }
-    
+
+    /// Begins the session.
+    /// Video is captured on the previewImageView.
+    /// Doesn't upload to a stream.
     public func beginRunning() {
         guard !isRunning else {
             return
@@ -142,6 +139,7 @@ public class LiveSession: NSObject {
         isRunning = true
     }
 
+    /// Ends the session.
     public func endRunning() {
         // end
         videoCaptureSource.end()
@@ -149,6 +147,10 @@ public class LiveSession: NSObject {
         isRunning = false
     }
 
+    /// Starts the stream.
+    /// begins uploading when the socket connects to the server.
+    ///
+    /// - parameter streamInfo: LiveStreamInfo with the rtmp endpoint
     public func startLive(with streamInfo: LiveStreamInfo) {
         self.streamInfo = streamInfo
         streamInfo.videoConfiguration = videoConfiguration
@@ -156,50 +158,43 @@ public class LiveSession: NSObject {
         socket?.start()
     }
 
+    /// Stops uploading to the stream.
     public func stopLive() {
         isUploading = false
         socket?.stop()
         socket = nil
     }
 
-    /// Support outer input yuv or rgb video(set LiveCaptureTypeMask)
-    func pushVideo(pixelBuffer: CVPixelBuffer?) {
-        guard captureType.contains(.inputVideo) else {
-            return
-        }
-
-        if isUploading {
-            videoEncoder?.encodeVideoData(pixelBuffer, timeStamp: UInt64(CACurrentMediaTime()*1000))
-        }
-    }
-
-    /// Support outer input pcm audio(set LiveCaptureTypeMask)
-    func pushAudio(audioData: Data?) {
-        guard captureType.contains(.inputAudio) else {
-            return
-        }
-
-        if isUploading {
-            audioEncoder?.encodeAudioData(audioData, timeStamp: UInt64(CACurrentMediaTime()*1000))
-        }
-    }
-
+    /// Set the camera zoom.
+    /// Default is 1.0
+    ///
+    /// - parameter zoom: zoom will only work between 1.0 ~ 3.0
     public func setZoomScale(to zoom: CGFloat) {
         videoCaptureSource.zoomScale = zoom
     }
 
+    /// Toggles the camera flash on/off.
+    /// Default is off.
     public func toggleTorch() {
         let isOn = videoCaptureSource.torch
         videoCaptureSource.torch = !isOn
     }
 
+    /// Toggle the camera position.
+    /// Default is back.
+    ///
+    /// - parameter position: front or back
     public func toggleDevicePosition(to position: AVCaptureDevice.Position) {
         videoCaptureSource.captureDevicePosition = position
     }
 
+    /// Send or mute audio.
+    ///
+    /// - parameter mute: default is on.
     public func muteAudio(_ mute: Bool) {
         audioCaptureSource?.muted = mute
     }
+
 }
 
 extension LiveSession {
@@ -211,7 +206,7 @@ extension LiveSession {
         lock.signal()
         return current
     }
-    
+
     func pushSendBuffer(_ frame: LFFrame) {
         if relativeTimestamp == 0 {
             relativeTimestamp = frame.timestamp
@@ -219,7 +214,7 @@ extension LiveSession {
         frame.timestamp = uploadTimestamp(frame.timestamp)
         socket?.send(frame)
     }
-    
+
 }
 
 extension LiveSession: VideoCaptureDelegate {
@@ -267,6 +262,7 @@ extension LiveSession: AudioEncodingDelegate {
 extension LiveSession: StreamSocketDelegate {
 
     public func socketBufferStatus(_ socket: StreamSocket?, status: LiveBufferState) {
+        // TODO (WTD)
 //        if((self.captureType & LiveCaptureMaskVideo || self.captureType & LiveInputMaskVideo) && self.adaptiveBitrate){
 //            NSUInteger videoBitRate = [self.videoEncoder videoBitRate];
 //            if (status == LiveBufferDecline) {
@@ -288,12 +284,12 @@ extension LiveSession: StreamSocketDelegate {
     
     public func socketStatus(_ socket: StreamSocket?, status: LiveState) {
         switch status {
-        case .start:
+        case .broadcasting:
             hasCaptureAudio = false
             hasKeyFrameVideo = false
             relativeTimestamp = 0
             isUploading = true
-        case .stop, .error:
+        case .ended, .error:
             isUploading = false
         default:
             break
